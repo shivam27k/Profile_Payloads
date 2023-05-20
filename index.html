@@ -132,6 +132,9 @@
                     // User is authenticated, proceed to display protected content
                     document.getElementById('login-container').style.display = 'none';
                     document.getElementById('protected-container').style.display = 'block';
+
+                    // Store the authentication status in local storage
+                    localStorage.setItem('authStatus', 'authenticated');
                 })
                 .catch(function (error) {
                     // Authentication failed, display error message
@@ -149,20 +152,24 @@
                     // User is logged out, hide protected content and display login form
                     document.getElementById('login-container').style.display = 'block';
                     document.getElementById('protected-container').style.display = 'none';
+
+                    // Remove the authentication status from local storage
+                    localStorage.removeItem('authStatus');
                 })
                 .catch(function (error) {
                     // An error occurred during logout
                     alert('An error occurred during logout. Please try again.');
                 });
         });
-        // Check if a user is already authenticated
-        onAuthStateChanged(auth, function (user) {
-            if (user) {
-                // User is authenticated, display protected content
-                document.getElementById('login-container').style.display = 'none';
-                document.getElementById('protected-container').style.display = 'block';
-            }
-        });
+
+        // Check if a user is already authenticated from local storage
+        const authStatus = localStorage.getItem('authStatus');
+        if (authStatus === 'authenticated') {
+            // User is authenticated, display protected content
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('protected-container').style.display = 'block';
+        }
+
     </script>
 </body>
 
