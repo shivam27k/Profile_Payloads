@@ -138,8 +138,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	fetchData()
 })
 
-import config from '../config.js'
-
 document
 	.getElementById('login-form')
 	.addEventListener('submit', function (event) {
@@ -147,8 +145,9 @@ document
 
 		var password = document.getElementById('password').value
 
-		// Replace 'your-password' with the actual password you want to use
-		if (password === config.password) {
+		var correctPassword = '${{ secrets.password }}'
+
+		if (password === correctPassword) {
 			document.getElementById('login-container').style.display = 'none'
 			document.getElementById('protected-container').style.display =
 				'block'
