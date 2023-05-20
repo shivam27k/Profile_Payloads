@@ -16,103 +16,154 @@
         <div id="login-container" class="login-container">
             <h2>Login</h2>
             <form id="login-form">
+                <input type="email" id="email" placeholder="Email">
                 <input type="password" id="password" placeholder="Password">
                 <button type="submit">Login</button>
             </form>
         </div>
 
-        <div id="protected-container" class="protected-container">
+        <div id="protected-container" class="protected-container" style="display: none;">
             <h2>Welcome to the protected page!</h2>
+            <button id="logout-button">Logout</button>
             <div class="profiles_collection">
                 <div class="profile">
                     <div class="profile_dropdown">
                         <button class="profile_name">Empty Template</button>
                         <i id="" class=" collapsible_icon fa-regular fa-square-caret-down"></i>
                     </div>
-                    <div style="white-space: pre-wrap" class="profile_content">
+                    <div contenteditable="true" style="white-space: pre-wrap" class="profile_content">
                         {
-
                         "id": {
                         "S": " "
                         },
-
                         "certification": {
                         "S": " "
                         },
-
                         "createdAt": {
                         "S": " "
                         },
-
                         "currentoffer": {
                         "S": " "
                         },
-
                         "experience": {
                         "S": " "
                         },
-
                         "expertise": {
                         "S": " "
                         },
-
                         "image": {
                         "S": " "
                         },
-
                         "imageicon1": {
                         "S": " "
                         },
-
                         "link1": {
                         "S": " "
                         },
-
                         "location": {
                         "S": " "
                         },
-
                         "name": {
                         "S": " "
                         },
-
                         "noticeperiod": {
                         "S": " "
                         },
-
                         "profileviews": {
                         "N": " "
                         },
-
                         "salarycurrent": {
                         "S": " "
                         },
-
                         "salaryexpectation": {
                         "S": " "
                         },
-
                         "updatedAt": {
                         "S": " "
                         },
-
                         "UserId": {
                         "S": " "
                         },
-
                         "__typename": {
                         "S": " "
-                        }'
-
                         }
-
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <div id="loader" class="loader">
+        <i class="fas fa-spinner"></i>
+    </div>
     <script type="module" src="script/script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA0bF3NDMjkRMqGcw6sXE8-2ZayYQDE4BM",
+            authDomain: "profile-payload.firebaseapp.com",
+            projectId: "profile-payload",
+            storageBucket: "profile-payload.appspot.com",
+            messagingSenderId: "889814480625",
+            appId: "1:889814480625:web:40a8e94091a65447e41b50",
+            measurementId: "G-G3PEC0KDLY"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+
+            // Show loader
+            document.getElementById('loader').style.display = 'block';
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then(function (userCredential) {
+                    // User is authenticated, proceed to display protected content
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('protected-container').style.display = 'block';
+                })
+                .catch(function (error) {
+                    // Authentication failed, display error message
+                    alert('Invalid email or password. Please try again.');
+                })
+                .finally(function () {
+                    // Hide loader
+                    document.getElementById('loader').style.display = 'none';
+                });
+        });
+
+        document.getElementById('logout-button').addEventListener('click', function () {
+            signOut(auth)
+                .then(function () {
+                    // User is logged out, hide protected content and display login form
+                    document.getElementById('login-container').style.display = 'block';
+                    document.getElementById('protected-container').style.display = 'none';
+                })
+                .catch(function (error) {
+                    // An error occurred during logout
+                    alert('An error occurred during logout. Please try again.');
+                });
+        });
+        // Check if a user is already authenticated
+        onAuthStateChanged(auth, function (user) {
+            if (user) {
+                // User is authenticated, display protected content
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('protected-container').style.display = 'block';
+            }
+        });
+    </script>
 </body>
 
 </html>

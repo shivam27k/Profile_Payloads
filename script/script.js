@@ -137,21 +137,3 @@ function multipleProfiles() {
 document.addEventListener('DOMContentLoaded', function () {
 	fetchData()
 })
-
-document
-	.getElementById('login-form')
-	.addEventListener('submit', function (event) {
-		event.preventDefault()
-
-		var password = document.getElementById('password').value
-
-		var correctPassword = '${{ secrets.password }}'
-
-		if (password === correctPassword) {
-			document.getElementById('login-container').style.display = 'none'
-			document.getElementById('protected-container').style.display =
-				'block'
-		} else {
-			alert('Invalid password. Please try again.')
-		}
-	})
