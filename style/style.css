@@ -1,0 +1,69 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+    outline: none;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    border-radius: 0%;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: rgb(63, 2, 105);
+    background: linear-gradient(90deg, rgba(63, 2, 105, 1) -20%, rgba(1, 16, 28, 1) 23%, rgba(0, 0, 0, 1) 84%, rgba(164, 237, 186, 0.7) 150%);
+}
+
+.container {
+    display: flex;
+    padding: 7rem;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.container h1 {
+    font-size: 4rem;
+}
+
+.profile {
+    margin-bottom: 2rem
+}
+
+.container .profiles_collection .profile_dropdown {
+    border: 1px solid white;
+    width: 100%;
+    margin-bottom: 1.3rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    padding-right: 2rem;
+}
+
+.container .profiles_collection .profile_dropdown .profile_name {
+    background: transparent;
+    border: none;
+    padding: 1.2rem 2rem;
+    font-size: 1.7rem;
+}
+
+i {
+    font-size: 1.7rem;
+}
+
+.container .profiles_collection .profile_content {
+    font-size: 1.3rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.big {
+    font-size: 20rem;
+}
