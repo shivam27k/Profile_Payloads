@@ -9,8 +9,6 @@ function fetchData() {
 		.then((response) => response.json())
 		.then((responseData) => {
 			fetchedData = responseData
-			console.log(fetchedData)
-
 			dropDown()
 
 			multipleProfiles()
@@ -40,85 +38,85 @@ function multipleProfiles() {
 
 		newProfile.querySelector('.profile_name').innerHTML = fetchedData[i][0]
 		newProfile.querySelector('.profile_content').innerHTML = `
-		<div>
-		{
+        <div>
+        {
 
-			"id": {
-				"S": " "
-			},
+            "id": {
+                "S": " "
+            },
 
-			"certification": {
-				"S": " "
-			},
+            "certification": {
+                "S": " "
+            },
 
-			"createdAt": {
-				"S": " "
-			},
+            "createdAt": {
+                "S": " "
+            },
 
-			"currentoffer": {
-				"S": " "
-			},
+            "currentoffer": {
+                "S": " "
+            },
 
-			"experience": {
-				"S": " "
-			},
+            "experience": {
+                "S": " "
+            },
 
-			"expertise": {
-				"S": " "
-			},
+            "expertise": {
+                "S": " "
+            },
 
-			"image": {
-				"S": " "
-			},
+            "image": {
+                "S": " "
+            },
 
-			"imageicon1": {
-				"S": " "
-			},
+            "imageicon1": {
+                "S": " "
+            },
 
-			"link1": {
-				"S": "${fetchedData[i][9]}"
-			},
+            "link1": {
+                "S": "${fetchedData[i][9]}"
+            },
 
-			"location": {
-				"S": "${fetchedData[i][7]} - ${fetchedData[i][8]}"
-			},
+            "location": {
+                "S": "${fetchedData[i][7]} - ${fetchedData[i][8]}"
+            },
 
-			"name": {
-				"S": "${fetchedData[i][0]}"
-			},
+            "name": {
+                "S": "${fetchedData[i][0]}"
+            },
 
-			"noticeperiod": {
-				"S": "${fetchedData[i][5]}"
-			},
+            "noticeperiod": {
+                "S": "${fetchedData[i][5]}"
+            },
 
-			"profileviews": {
-				"N": "0"
-			},
+            "profileviews": {
+                "N": "0"
+            },
 
-			"salarycurrent": {
-				"S": "${fetchedData[i][3]}"
-			},
+            "salarycurrent": {
+                "S": "${fetchedData[i][3]}"
+            },
 
-			"salaryexpectation": {
-				"S": "${fetchedData[i][4]}"
-			},
+            "salaryexpectation": {
+                "S": "${fetchedData[i][4]}"
+            },
 
-			"updatedAt": {
-				"S": " "
-			},
+            "updatedAt": {
+                "S": " "
+            },
 
-			"UserId": {
-				"S": " "
-			},
+            "UserId": {
+                "S": " "
+            },
 
-			"__typename": {
-				"S": "Newprofile"
-			}'
+            "__typename": {
+                "S": "Newprofile"
+            }'
 
-		}
+        }
 
-		</div>
-		`
+        </div>
+        `
 		// add any other properties you want to display
 
 		profile[0].parentNode.appendChild(newProfile)
@@ -136,4 +134,25 @@ function multipleProfiles() {
 	}
 }
 
-document.addEventListener('DOMContentLoaded', fetchData)
+document.addEventListener('DOMContentLoaded', function () {
+	fetchData()
+})
+
+import config from '../config.js'
+
+document
+	.getElementById('login-form')
+	.addEventListener('submit', function (event) {
+		event.preventDefault()
+
+		var password = document.getElementById('password').value
+
+		// Replace 'your-password' with the actual password you want to use
+		if (password === config.password) {
+			document.getElementById('login-container').style.display = 'none'
+			document.getElementById('protected-container').style.display =
+				'block'
+		} else {
+			alert('Invalid password. Please try again.')
+		}
+	})
